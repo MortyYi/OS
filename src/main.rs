@@ -12,10 +12,17 @@ pub extern "C" fn _start() -> ! {
     // this function is the entry point, since the linker looks for a function
     // named `start` by default
     println!("Hello World{}", "!");
-    // panic!("Some panic message");
+
+    blog_os::init();
+
+    unsafe {
+        *(0xdeadbeef as *mut u64) = 42;
+    }
+
     #[cfg(test)]
     test_main();
 
+    println!("It did not carsh!");
     loop {}
 }
 
@@ -32,5 +39,3 @@ fn panic(info: &PanicInfo) -> ! {
 fn panic(info: &PanicInfo) -> ! {
     blog_os::test_panic_handler(info)
 }
-
-

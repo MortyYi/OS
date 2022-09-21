@@ -55,6 +55,9 @@ pub struct Writer {
     color_code: ColorCode,
     buffer: &'static mut Buffer,
 }
+pub struct CC {
+    pub a: i32,
+}
 
 impl Writer {
     pub fn write_byte(&mut self, byte: u8) {
