@@ -9,17 +9,11 @@ use core::panic::PanicInfo;
 use blog_os::println;
 use bootloader::{BootInfo, entry_point};
 use alloc::{boxed::Box, vec, vec::Vec, rc::Rc};
+use blog_os::task::{Task, simple_executor::SimpleExecutor};
+use blog_os::task::keyboard;
+use blog_os::task::executor::Executor;
 
 entry_point!(kernel_main);
-
-async fn async_number() -> u32 {
-    42
-}
-
-async fn example_task() {
-    let number = async_number().await;
-    println!("async number: {}", number);
-}
 
 fn kernel_main(boot_info: &'static BootInfo) -> ! {
     use x86_64::{structures::paging::Page, VirtAddr};
@@ -54,11 +48,25 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
     core::mem::drop(reference_counted);
     println!("reference count is {} now", Rc::strong_count(&cloned_reference));
 
+    let mut executor = SimpleExecutor::new();
+    executor.spawn(Task::new(example_task()));
+    executor.spawn(Task::new(keyboard::print_keypresses()));
+    executor.run();
+
     #[cfg(test)]
     test_main();
 
     println!("It did not carsh!");
     blog_os::hlt_loop();
+}
+
+async fn async_number() -> u32 {
+    42
+}
+
+async fn example_task() {
+    let number = async_number().await;
+    println!("async number: {}", number);
 }
 
 /// This function is called on panic.
