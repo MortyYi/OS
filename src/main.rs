@@ -12,6 +12,15 @@ use alloc::{boxed::Box, vec, vec::Vec, rc::Rc};
 
 entry_point!(kernel_main);
 
+async fn async_number() -> u32 {
+    42
+}
+
+async fn example_task() {
+    let number = async_number().await;
+    println!("async number: {}", number);
+}
+
 fn kernel_main(boot_info: &'static BootInfo) -> ! {
     use x86_64::{structures::paging::Page, VirtAddr};
     use blog_os::allocator;
