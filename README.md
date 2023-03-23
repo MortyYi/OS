@@ -44,7 +44,7 @@ v0.6.12+commit.27d51765
 
 ## Dex 池子大小：
 ### pancakeswap:
-(0xc2f1A40D3ba746B913C798057d8010800AAce255) value:1143449 BUSD.
+(0xc2f1A40D3ba746B913C798057d8010800AAce255) value:1143449 BUSD  
 dex中 pancakeswap 占有 0.2196% 的代币总流通量，排名第82。除去黑洞地址外，拥有 10% 以上 pancakeswap 代币量的 EOA 和地址总数约为 14，拥有 50% 以上 pancakeswap 代币量的 EOA 和地址总数约为 4，拥有 100% 以上 pancakeswap 代币量的 EOA 和地址总数约为 2
 
 ## 分析：
